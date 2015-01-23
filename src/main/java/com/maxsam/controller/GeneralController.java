@@ -1,32 +1,38 @@
 package com.maxsam.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.maxsam.dao.entity.SamUser;
+import com.maxsam.service.UserLoginService;
 
 @Controller
 public class GeneralController {
-	@RequestMapping(value = "index")
-	public void index_jsp(Model model) {
-		model.addAttribute("name", "Sam 你好！");
-		System.out.println("index.jsp");
-	}
+	
+	@Autowired
+	private UserLoginService userLoginService;
 
-	@RequestMapping(value = "index/{user_id}", method = RequestMethod.GET)
-	public String showMessage(@PathVariable String msg, HttpServletRequest request, HttpServletResponse response) {
-		request.setAttribute("message", msg); // 设置返回消息
-		return "message"; // 设置返回页面，这里对应 /WEB-INF/view 目录下的 message.ftl 文件
+	@RequestMapping(value = "/index/{userId}", method = RequestMethod.GET)
+	public ModelAndView indexFtl(@PathVariable int userId) {
+		ModelAndView mav = new ModelAndView("index");
+		SamUser user = userLoginService.getLoginUser(userId);
+		// SamUser user = new SamUser();
+		// user.setUserId(1);
+		// user.setUserName("Sam");
+		// user.setPassword("Sam Password");
+		mav.addObject("user", user);
+		return mav;
 	}
-
-	@RequestMapping(value = "index/add")
-	public String addMessage(HttpServletRequest request, HttpServletResponse response) {
-		request.setAttribute("message", "message is added");
-		return "message";
-
-	}
+	
+//	@RequestMapping(value = "/index", method = RequestMethod.GET)
+//    public String index(@ModelAttribute("model") ModelMap model) {
+// 
+//        model.addAttribute("userList", userList);
+// 
+//        return "index";
+//    }
 }

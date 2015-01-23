@@ -7,6 +7,6 @@ import com.maxsam.dao.entity.SamUser;
 
 @Repository
 @Transactional
-public interface UserDao {
-	public SamUser getUserLogin(int userId);
+public interface UserDao extends AbstractMybatisMapper {
+	public SamUser getUserName(int userId);
 }

@@ -14,70 +14,38 @@
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-	<!-- 支持注解 -->
-	<mvc:annotation-driven />
-	<context:component-scan base-package="com.maxsam" />
-	<!-- 使用注解方式的事务 -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
 
-	<!-- db configuration -->
 	<context:property-placeholder location="classpath:mysql.properties" />
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="${jdbc.driver}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-	</bean>
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" value="classpath:mybatis-config.xml" />
-		<property name="dataSource" ref="dataSource" />
-		<!-- 映射文件集合 -->
-		<property name="mapperLocations" value="classpath:com/maxsam/dao/mapper/*.xml" />
-	</bean>
+	<context:component-scan base-package="com.maxsam" />
+
+	<import resource="spring-context.xml" />
+
+	<mvc:annotation-driven />
 
 	<!-- freemarker的配置 -->
+	<!-- 设置freeMarker的配置文件路径 -->
+	<bean id="freemarkerConfiguration"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="classpath:freemarker.properties" />
+	</bean>
 	<bean id="freemarkerConfigurer"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-		<property name="templateLoaderPath" value="/view/" />
+		<property name="templateLoaderPath" value="/views/" />
 		<property name="defaultEncoding" value="UTF-8" />
-		<property name="freemarkerSettings">
-			<props>
-				<prop key="template_update_delay">10</prop>
-				<prop key="locale">zh_CN</prop>
-				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
-				<prop key="date_format">yyyy-MM-dd</prop>
-				<prop key="number_format">#.##</prop>
-			</props>
-		</property>
+		<property name="freemarkerSettings" ref="freemarkerConfiguration" />
 	</bean>
 
-	<!-- FreeMarker视图解析 如返回userinfo。。在这里配置后缀名ftl和视图解析器。。 -->
+	<!-- FreeMarker视图解析。 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
 		<property name="suffix" value=".ftl" />
 		<property name="contentType" value="text/html;charset=utf-8" />
+		<property name="requestContextAttribute" value="request" />
 		<property name="exposeRequestAttributes" value="true" />
 		<property name="exposeSessionAttributes" value="true" />
 		<property name="exposeSpringMacroHelpers" value="true" />
 	</bean>
-
-	<!-- 自动扫描dao -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
-		<property name="basePackage" value="com.maxsam.dao" />
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean>
-
-
-	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
-		<property name="prefix" value="views/" /> <property name="suffix" value=".jsp" 
-		/> </bean> <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource" 
-		p:basename="i18n/messages" /> -->
 
 </beans>
