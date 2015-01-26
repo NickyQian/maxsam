@@ -3,8 +3,8 @@ package com.maxsam.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.maxsam.dao.UserDao;
 import com.maxsam.dao.entity.SamUser;
+import com.maxsam.dao.mapper.UserDao;
 
 @Service
 public class UserLoginService {
@@ -12,6 +12,6 @@ public class UserLoginService {
 	private UserDao userDao;
 
 	public SamUser getLoginUser(int userId) {
-		return userDao.getUserName(userId);
+		return userDao.getUser(userId);
 	}
 }

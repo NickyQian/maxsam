@@ -103,6 +103,11 @@
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0.3.0</version>
 		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>maxsam</finalName>
@@ -113,19 +118,8 @@
 				<version>6.1.24</version>
 				<configuration>
 					<contextPath>/</contextPath>
+					<scanIntervalSeconds>3</scanIntervalSeconds>
 				</configuration>
-				<!-- <configuration> <contextPath>/</contextPath> <stopPort>9966</stopPort> 
-					<stopKey>foo</stopKey> <scanIntervalSeconds>3</scanIntervalSeconds> <scanTargetPatterns> 
-					<scanTargetPattern> <directory>src/main/webapp/WEB-INF</directory> <excludes> 
-					<exclude>**/*.jsp</exclude> </excludes> <includes> <include>**/*.properties</include> 
-					<include>**/*.xml</include> </includes> </scanTargetPattern> <scanTargetPattern> 
-					<directory>src/main/java/com/maxsam/dao/mapper</directory> <includes> <include>**/*.xml</include> 
-					</includes> </scanTargetPattern> </scanTargetPatterns> <requestLog implementation="org.mortbay.jetty.NCSARequestLog"> 
-					<filename>target/yyyy_mm_dd.request.log</filename> <retainDays>90</retainDays> 
-					<append>true</append> <extended>false</extended> <logTimeZone>GMT</logTimeZone> 
-					</requestLog> <connectors> <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector"> 
-					<port>8080</port> <maxIdleTime>60000</maxIdleTime> </connector> </connectors> 
-					</configuration> -->
 			</plugin>
 		</plugins>
 	</build>

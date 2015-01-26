@@ -1,12 +1,12 @@
-package com.maxsam.dao;
+package com.maxsam.dao.mapper;
 
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.maxsam.dao.AbstractMybatisMapper;
 import com.maxsam.dao.entity.SamUser;
 
-@Repository
 @Transactional
 public interface UserDao extends AbstractMybatisMapper {
-	public SamUser getUserName(int userId);
+	public SamUser getUser(int userId);
+	public String getUserName(int userId);
 }

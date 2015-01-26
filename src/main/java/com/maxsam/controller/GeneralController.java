@@ -12,7 +12,7 @@ import com.maxsam.service.UserLoginService;
 
 @Controller
 public class GeneralController {
-	
+
 	@Autowired
 	private UserLoginService userLoginService;
 
@@ -20,19 +20,12 @@ public class GeneralController {
 	public ModelAndView indexFtl(@PathVariable int userId) {
 		ModelAndView mav = new ModelAndView("index");
 		SamUser user = userLoginService.getLoginUser(userId);
-		// SamUser user = new SamUser();
-		// user.setUserId(1);
-		// user.setUserName("Sam");
-		// user.setPassword("Sam Password");
+		//SamUser user = new SamUser();
+		// user.setUserId(2);
+		// user.setUserName(userName);
+		// user.setPassword("Dummy1");
 		mav.addObject("user", user);
 		return mav;
 	}
-	
-//	@RequestMapping(value = "/index", method = RequestMethod.GET)
-//    public String index(@ModelAttribute("model") ModelMap model) {
-// 
-//        model.addAttribute("userList", userList);
-// 
-//        return "index";
-//    }
+
 }

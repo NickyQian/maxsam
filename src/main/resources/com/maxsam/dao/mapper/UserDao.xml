@@ -2,7 +2,7 @@
 <!DOCTYPE mapper  
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.maxsam.dao.UserDao">
+<mapper namespace="com.maxsam.dao.mapper.UserDao">
 
 	<resultMap type="com.maxsam.dao.entity.SamUser" id="SamUserMap"
 		autoMapping="true">
@@ -11,11 +11,15 @@
 		<result property="password" column="user_passed" />
 	</resultMap>
 
-<!-- 	        SELECT * FROM sam_info
-	        WHERE user_id=#{userId} -->
-	<select id="getUserName" resultMap="SamUserMap" parameterType="int">
+	<select id="getUser" resultMap="SamUserMap" parameterType="int">
         <![CDATA[
 	        select batch_id as user_id, batch_name as user_name,created_by as user_passed from batch_defn where batch_id=#{userId}
+        ]]>
+	</select>
+	<select id="getUserName" resultType="java.lang.String"
+		parameterType="int">
+		<![CDATA[
+	        select batch_name as userName from batch_defn where batch_id=#{userId}
         ]]>
 	</select>
 </mapper>
