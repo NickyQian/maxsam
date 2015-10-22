@@ -8,18 +8,18 @@
 		autoMapping="true">
 		<id property="userId" column="user_id" />
 		<result property="userName" column="user_name" />
-		<result property="password" column="user_passed" />
+		<result property="password" column="user_passwd" />
 	</resultMap>
 
 	<select id="getUser" resultMap="SamUserMap" parameterType="int">
         <![CDATA[
-	        select batch_id as user_id, batch_name as user_name,created_by as user_passed from batch_defn where batch_id=#{userId}
+	        select user_id as user_id, user_name as user_name,user_passwd as user_passwd from sam_info where user_id=#{userId}
         ]]>
 	</select>
 	<select id="getUserName" resultType="java.lang.String"
 		parameterType="int">
 		<![CDATA[
-	        select batch_name as userName from batch_defn where batch_id=#{userId}
+	        select user_name as user_name,user_passwd as user_passwd from sam_info where user_id=#{userId}
         ]]>
 	</select>
 </mapper>

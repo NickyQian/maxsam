@@ -19,11 +19,11 @@ public class GeneralController {
 	@RequestMapping(value = "/index/{userId}", method = RequestMethod.GET)
 	public ModelAndView indexFtl(@PathVariable int userId) {
 		ModelAndView mav = new ModelAndView("index");
-		//SamUser user = userLoginService.getLoginUser(userId);
-		SamUser user = new SamUser();
-		 user.setUserId(2);
-		 user.setUserName("userName");
-		 user.setPassword("Dummy1");
+		SamUser user = userLoginService.getLoginUser(userId);
+//		SamUser user = new SamUser();
+//		 user.setUserId(userId);
+//		 user.setUserName("userName");
+//		 user.setPassword("Dummy1");
 		mav.addObject("user", user);
 		return mav;
 	}
