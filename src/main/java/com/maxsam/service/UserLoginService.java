@@ -14,4 +14,8 @@ public class UserLoginService {
 	public SamUser getLoginUser(int userId) {
 		return userDao.getUser(userId);
 	}
+
+	public SamUser findUserByName(String name) {
+		return userDao.getUser(name);
+	}
 }
