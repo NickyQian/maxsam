@@ -13,7 +13,8 @@
 
 	<!-- 启动扫描所有的controller -->
 	<context:component-scan base-package="com.maxsam" />
-
+	<context:annotation-config />
+	<import resource="dispatcher-servlet.xml" />
 	<!-- 主要作用于@Controller，激活该模式下面是一种简写形式，完全可以手动配置替代这种简写形式； 它会自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 
 		两个bean, 是spring MVC为@Controllers分发请求所必须的 -->
 	<mvc:annotation-driven />
@@ -30,54 +31,19 @@
 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 请求映射 -->
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
-
-
-	<!-- FreeMarker视图解析 -->
-	<!-- 设置freeMarker的配置文件路径 -->
-	<bean id="freemarkerConfiguration"
-		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-		<property name="location" value="classpath:freemarker.properties" />
-	</bean>
-	<!-- 配置freeMarker的模板路径 -->
-	<bean id="freemarkerConfig"
-		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-		<property name="freemarkerSettings" ref="freemarkerConfiguration" />
-		<property name="templateLoaderPath">
-			<value>/views/</value>
-		</property>
-		<property name="freemarkerVariables">
-			<map>
-				<entry key="xml_escape" value-ref="fmXmlEscape" />
-			</map>
-		</property>
-	</bean>
-	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
-
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver"
-		abstract="false" scope="singleton" lazy-init="default" autowire="default">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
-		<property name="suffix" value=".ftl" />
-		<property name="cache">
-			<value>true</value>
-		</property>
-		<property name="contentType" value="text/html;charset=UTF-8" />
-		<property name="requestContextAttribute" value="request" />
-		<property name="exposeRequestAttributes" value="true" />
-		<property name="exposeSessionAttributes" value="true" />
-		<property name="exposeSpringMacroHelpers" value="true" />
-	</bean>
-
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/login.jsp"/>
-		<property name="successUrl" value="/home.jsp"/> 
-		<property name="unauthorizedUrl" value="/unauthorized.jsp"/>
-		<!-- The 'filters' property is not necessary since any declared javax.servlet.Filter bean -->
-		<!-- defined will be automatically acquired and available via its beanName in chain -->
-		<!-- definitions, but you can perform instance overrides or name aliases here if you like: -->
-		<!-- <property name="filters"> <util:map> <entry key="anAlias" value-ref="someFilter"/></util:map> </property> -->
+		<property name="loginUrl" value="/login" />
+		<property name="successUrl" value="/home.jsp" />
+		<property name="unauthorizedUrl" value="/unauthorized.jsp" />
+		<!-- The 'filters' property is not necessary since any declared javax.servlet.Filter 
+			bean -->
+		<!-- defined will be automatically acquired and available via its beanName 
+			in chain -->
+		<!-- definitions, but you can perform instance overrides or name aliases 
+			here if you like: -->
+		<!-- <property name="filters"> <util:map> <entry key="anAlias" value-ref="someFilter"/></util:map> 
+			</property> -->
 		<property name="filterChainDefinitions">
 			<value>
 				# some example chain definitions:
@@ -88,24 +54,28 @@
 		</property>
 	</bean>
 
-	<!-- Define any javax.servlet.Filter beans you want anywhere in this application context. -->
-	<!-- They will automatically be acquired by the 'shiroFilter' bean above and made available -->
-	<!-- to the 'filterChainDefinitions' property. Or you can manually/explicitly add them -->
-	<!-- to the shiroFilter's 'filters' Map if desired. See its JavaDoc for more details. -->
-	<!-- <bean id="someFilter" class="..." />
-	<bean id="anotherFilter" class="..."></bean> -->
-
+	<!-- Define any javax.servlet.Filter beans you want anywhere in this application 
+		context. -->
+	<!-- They will automatically be acquired by the 'shiroFilter' bean above 
+		and made available -->
+	<!-- to the 'filterChainDefinitions' property. Or you can manually/explicitly 
+		add them -->
+	<!-- to the shiroFilter's 'filters' Map if desired. See its JavaDoc for 
+		more details. -->
+	<!-- <bean id="someFilter" class="..." /> <bean id="anotherFilter" class="..."></bean> -->
 
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-		<!-- Single realm app. If you have multiple realms, use the 'realms' property instead. -->
+		<!-- Single realm app. If you have multiple realms, use the 'realms' property 
+			instead. -->
 		<property name="realm" ref="maxSamRealm" />
-		<!-- By default the servlet container sessions will be used. Uncomment this line to use shiro's native sessions: -->
+		<!-- By default the servlet container sessions will be used. Uncomment 
+			this line to use shiro's native sessions: -->
 		<!-- <property name="sessionMode" value="native"/> -->
 	</bean>
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 
-	<!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
+	<!-- Define the Shiro Realm implementation you want to use to connect to 
+		your back-end -->
 	<!-- security datasource: -->
-	<!-- <bean id="maxSamRealm" class="com.maxsam.security.MaxSamRealm">
-	</bean> -->
+	<!-- <bean id="maxSamRealm" class="com.maxsam.security.MaxSamRealm"> </bean> -->
 </beans>

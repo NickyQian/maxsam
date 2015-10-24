@@ -27,5 +27,11 @@ public class GeneralController {
 		mav.addObject("user", user);
 		return mav;
 	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView login() {
+		ModelAndView mav = new ModelAndView("login");
+		return mav;
+	}
 
 }
