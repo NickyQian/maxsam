@@ -20,10 +20,7 @@ public class GeneralController {
 	public ModelAndView indexFtl(@PathVariable int userId) {
 		ModelAndView mav = new ModelAndView("index");
 		SamUser user = userLoginService.getLoginUser(userId);
-//		SamUser user = new SamUser();
-//		 user.setUserId(userId);
-//		 user.setUserName("userName");
-//		 user.setPassword("Dummy1");
+		user.setPassword("测试中文：你好");
 		mav.addObject("user", user);
 		return mav;
 	}
