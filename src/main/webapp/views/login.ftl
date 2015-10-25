@@ -10,6 +10,22 @@
 
 <body>
 <p>Hi, this is login page!</p>
+<form action="" method="post">
+	<table>
+		<tr>
+			<td>用户名（测试中文）</td>
+			<td><input type="text" id="username" name="username" /></td>
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td><input id="password" type="password" name="password" /></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" id="rememberMe">Remember Me</input></td>
+			<td><input type="submit" value="Submit"></input></td>
+		</tr>
+	</table>
+</form>
 </body>
 
 </html>

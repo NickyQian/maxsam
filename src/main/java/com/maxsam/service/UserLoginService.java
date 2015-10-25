@@ -16,6 +16,6 @@ public class UserLoginService {
 	}
 
 	public SamUser findUserByName(String name) {
-		return userDao.getUser(name);
+		return userDao.getUserByName(name);
 	}
 }

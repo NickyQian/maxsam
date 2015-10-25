@@ -16,6 +16,11 @@
 	        select user_id as user_id, user_name as user_name,user_passwd as user_passwd from sam_info where user_id=#{userId}
         ]]>
 	</select>
+	<select id="getUserByName" resultMap="SamUserMap" parameterType="java.lang.String">
+        <![CDATA[
+	        select user_id as user_id, user_name as user_name,user_passwd as user_passwd from sam_info where user_name=#{userName}
+        ]]>
+	</select>
 	<select id="getUserName" resultType="java.lang.String"
 		parameterType="int">
 		<![CDATA[

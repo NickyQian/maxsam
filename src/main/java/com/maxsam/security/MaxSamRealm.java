@@ -42,7 +42,7 @@ public class MaxSamRealm extends AuthorizingRealm {
 		// }
 		// 交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以在此判断或自定义实现
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUserName(), // 用户名
-				user.getPassword(), // 密码
+				user.getPassword(), // password
 				getName() // realm name
 		);
 		return authenticationInfo;

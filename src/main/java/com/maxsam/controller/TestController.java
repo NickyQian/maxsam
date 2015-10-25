@@ -11,8 +11,7 @@ import com.maxsam.dao.entity.SamUser;
 import com.maxsam.service.UserLoginService;
 
 @Controller
-public class GeneralController {
-
+public class TestController {
 	@Autowired
 	private UserLoginService userLoginService;
 
@@ -22,12 +21,6 @@ public class GeneralController {
 		SamUser user = userLoginService.getLoginUser(userId);
 		user.setPassword("测试中文：你好");
 		mav.addObject("user", user);
-		return mav;
-	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login() {
-		ModelAndView mav = new ModelAndView("login");
 		return mav;
 	}
 
